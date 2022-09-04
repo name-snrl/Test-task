@@ -51,31 +51,31 @@
 3. Сменить порт, прокинуть ключи, запретить вход по паролю, запретить вход от
    рута. Настроить 2FA (этого нет в [скрипте](task03.sh)).
 4. Шаблон:
-```bash
-find path/to/dir -type f -mtime +10 | sed 's#remove_part/of/path_to_dir##' |
-    rsync \
-    --dirs \
-    --times \
-    --bwlimit=3Mib \
-    --remove-source-files \
-    --files-from=- \
-    path_to_dir/where_files_can_be_find \
-    userName@hostName:path/to/backup/dir
-```
+   ```bash
+   find path/to/dir -type f -mtime +10 | sed 's#remove_part/of/path_to_dir##' |
+       rsync \
+       --dirs \
+       --times \
+       --bwlimit=3Mib \
+       --remove-source-files \
+       --files-from=- \
+       path_to_dir/where_files_can_be_find \
+       userName@hostName:path/to/backup/dir
+   ```
    Пример использования:
-```bash
-cd ~
-find downloads/Kotatogram\ Desktop/ -type f -mtime +10 |
-    sed 's#^downloads/##' |
-    rsync \
-    --dirs \
-    --times \
-    --bwlimit=3Mib \
-    --remove-source-files \
-    --files-from=- \
-    downloads/ \
-    root@192.168.122.206:~/backup
-```
+   ```bash
+   cd ~
+   find downloads/Kotatogram\ Desktop/ -type f -mtime +10 |
+       sed 's#^downloads/##' |
+       rsync \
+       --dirs \
+       --times \
+       --bwlimit=3Mib \
+       --remove-source-files \
+       --files-from=- \
+       downloads/ \
+       root@192.168.122.206:~/backup
+   ```
    На удаленном хосте получим папку `Kotatogram Desktop` с требуемым содержимым.
    P.s. возможно требовалось использовать `find(1)` с ключем `-exec`, но мне
    хотелось удалить лишнюю часть пути при копировании.
